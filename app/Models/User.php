@@ -2,14 +2,14 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasMany; // Tambahkan untuk relasi hasMany
+use App\Models\Peminjaman; // Pastikan memanggil model Peminjaman
 
 class User extends Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
     /**
@@ -44,5 +44,14 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    /**
+     * Relasi satu ke banyak dengan model Peminjaman.
+     * Setiap User bisa memiliki banyak Peminjaman.
+     */
+    public function peminjamans(): HasMany
+    {
+        return $this->hasMany(Peminjaman::class); // Menambahkan relasi one-to-many dengan Peminjaman
     }
 }

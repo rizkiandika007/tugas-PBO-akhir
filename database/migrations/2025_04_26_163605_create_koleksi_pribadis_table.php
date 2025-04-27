@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('koleksi_pribadis', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained()->casecadeOnDelete();
+            $table->foreignId('buku_id')->constrained()->casecadeOnDelete();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

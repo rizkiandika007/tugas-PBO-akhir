@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('kategori_buku_relasis', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('buku_id')->constrained('bukus')->cascadeOnDelete(); // 'bukus' sebagai tabel referensi
+            $table->foreignId('kategori_id')->constrained('kategori_bukus')->cascadeOnDelete(); // 'kategori_bukus' sebagai tabel referensi
+            $table->softDeletes();
             $table->timestamps();
         });
     }
